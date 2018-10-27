@@ -123,7 +123,7 @@ See also the sortColumn and unsort methods.
 <tr>
   <td><b>ColumnToolTip</b><br>Indicates the tooltips for the column headers
   <td>&#9656;empty char '' (default)<br>&#9656;1-by-n or n-by-1 cell array of char vectors
-  <td>t = olduitable('Data',magic(3),...<br>'ColumnToolTip',...<br>{['this tooltip is very long|',...<br>'to show it in a single line'], '',...<br>'hi, I am the tooltip for the third column'});
+  <td>t = olduitable('Data',magic(3),...<br>'ColumnToolTip',...<br>{['this tooltip is very long|',...<br>'to show it in a single line'],'',...<br>'hi, I am the tooltip for the third column'});
   <td>If the length of the ColumnToolTip array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with the default empty value (so, there will be no tooltips in these columns).
 
 <tr>
@@ -503,3 +503,14 @@ Any change in the static Java class path will be available in the next Matlab se
 
 1. If we drag the scroll bars directly, specially for the horizontal bar, would see a bit of delay between the renderers of the headers and the table's body. This is probably because every time the view changes, the components of the jscrollpane are repainted. The solution for this is …..??
 
+## License
+
+This project is licensed under the terms of the <a href="https://github.com/pbaezr/olduitable/blob/master/LICENSE">MIT License</a>.
+
+## Author
+
+<a href="mailto:pbaez@ug.uchile.cl">Pablo Báez R.</a>
+
+## Version
+
+1.0 (2018-10-27)
