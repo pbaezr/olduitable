@@ -76,14 +76,14 @@ See also the setCellBg method.
 
 <tr><td><b>ColumnEditable</b><br>Indicates the ability to edit the column cells
   <td>&#9656;logical scalar or array (false by default)<br>&#9656;numeric scalar or array with binary values
-  <td>t = olduitable('data',magic(2),...<br>'ColumnEditable',[true false]);<br><br>t = olduitable('Data',magic(2),...<br>'ColumnEditable',[1 0]);
+  <td>t = olduitable('data',magic(2),...<br>'ColumnEditable',[true false]);<br><br>t2 = olduitable(figure,'Data',magic(2),...<br>'ColumnEditable',[1 0]);
   <td>If the length of the ColumnEditable array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with the default value (or repeating the assigned unique value).
 
 <tr>
   <td><b>ColumnFormat</b><br>Indicates the column displays
   <td>&#9656;empty char '' (default)<br>&#9656;char vectors as 'bank', 'char', 'color', 'logical', 'longchar' or 'popup'<br>&#9656;char vector with a valid formatting operator (see <a href="https://www.mathworks.com/help/matlab/ref/sprintf.html?s_tid=doc_ta#btf_bfy-1_sep_shared-formatSpec">Matlab Documentation</a>)
 <br>&#9656;1-by-n or n-by-1 cell array of char vectors with any of those values for each column.
-    <td>data = {'red','dog',true,pi,repmat('a',1,100);<br>'blue','cat',false,25,repmat('b',1,100)};<br>t = olduitable('ColumnEditable',true,...<br>'ColumnFormat',{'color','popup','logical','%.2f','longchar'},...<br>'Data',data);<br><br>t = olduitable('ColumnFormat','color',...<br>'Data',{java.awt.Color(0.7,0.4,0.9),'m'});
+    <td>data = {'red','dog',true,pi,repmat('a',1,100);<br>'blue','cat',false,25,repmat('b',1,100)};<br>t = olduitable('ColumnEditable',true,...<br>'ColumnFormat',{'color','popup','logical','%.2f','longchar'},...<br>'Data',data);<br><br>t2 = olduitable(figure,'ColumnFormat','color',...<br>'Data',{java.awt.Color(0.7,0.4,0.9),'m'});
     <td>If the ColumnEditable property for the columns with formats like 'color', 'logical', 'longchar' or 'popup' is false (or 0), user won't be able to interact with these columns.<br><br>The 'color' format supports a short or long name of the basic colors and a java.awt.Color object, as in the second example.
 
 <tr>
@@ -364,8 +364,7 @@ On the other hand, if we consult the `Data` and `RowName` properties, will see r
 ### Unsort the table
 To programmatically unsort the table, use
 
-`t.unsort;` 
-
+`t.unsort;`
 
 ### Get the  the content of a specific cell
 
@@ -403,16 +402,14 @@ To return to the previous foreground defined by the `ForegroundColor` property, 
 
 `t.resetCellFg(column)`
 
-
 **Note**: These "reset" functions will only have effect for the specfied column.
-
 
 ### Paste data in the table
 
 To paste the contents of the clipboard (including data from Excel), use any of the following options:
 
 * the default context menu
-* <kbd>Ctrl</kbd>+<kbd>V</kbd>
+* <kbd>Ctrl</kbd> + <kbd>V</kbd>
 * the command `t.paste`
 
 ### Cut data from the table
@@ -420,7 +417,7 @@ To paste the contents of the clipboard (including data from Excel), use any of t
 To cut the contents of the selected cells in the table `t` use:
 
 * the default context menu
-* `Ctrl`+`X`
+* <kbd>Ctrl</kbd> + <kbd>X</kbd>
 * the command `t.cut`
 
 ### Clear contents
@@ -428,7 +425,7 @@ To cut the contents of the selected cells in the table `t` use:
 To clear the contents of the selected cells use:
 
 * the default context menu
-* `delete` key
+* <kbd>delete</kbd> key
 * the command `t.paste({''})`
 
 **Note**: The methods to paste, cut and clear the contents won't work if the selected columns are not editable.
@@ -438,8 +435,8 @@ To clear the contents of the selected cells use:
 To insert rows above or below the selected cells use:
 
 * the default context menu
-* `Alt`+`uparrow` (to insert rows above)
-* `Alt`+`downarrow` (to insert rows below)
+* <kbd>Alt</kbd> + <kbd>&uparrow;</kbd> (to insert rows above)
+* <kbd>Alt</kbd> + <kbd>&downarrow;</kbd> (to insert rows below)
 * the command `t.insertRows(direction)` where `direction` is `'above'` or `'below'`.
 
 ### Insert columns
@@ -447,8 +444,8 @@ To insert rows above or below the selected cells use:
 To insert columns to the left or right of the selected cells use:
 
 * the default context menu
-* `Alt`+`leftarrow` (to insert columns to the left)
-* `Alt`+`rightarrow` (to insert columns to the right)
+* <kbd>Alt</kbd> + <kbd>&leftarrow;</kbd> (to insert columns to the left)
+* <kbd>Alt</kbd> + <kbd>&rightarrow;</kbd> (to insert columns to the right)
 * the command `t.insertColumns(direction)` where `direction` is `'left'` or `'right'`.
 
 ### Delete rows
@@ -456,7 +453,7 @@ To insert columns to the left or right of the selected cells use:
 To delete the selected rows use:
 
 * the default context menu
-*  `Ctrl`+`minus`
+* <kbd>Ctrl</kbd> + <kbd>&minus;</kbd>
 * the command `t.deleteRows`
 
 ### Delete columns
@@ -464,23 +461,20 @@ To delete the selected rows use:
 To delete the selected columns use:
 
 * the default context menu
-*  `Ctrl`+`backspace`
+* <kbd>Ctrl</kbd> + <kbd>backspace</kbd>
 * the command `t.deleteColumns`
 
 **Note**: By design the methods to insert and delete rows and columns only work if the **entire** table is editable.
 
 ### Common keyboard shortcuts
 
-* `Ctrl`+`A` selects the entire table
-* `Ctrl`+`C` copy the content of the selected cells to the system clipboard
-* `Ctrl`+`uparrow` goes to the last row
-* `Ctrl`+`downarrow` goes to the first row
-* `Ctrl`+`leftarrow` goes to the first column
-* `Ctrl`+`rightarrow` goes to the last column
-* `Ctrl`+`arrow` expands/contracts the current selection
-
-
-
+* <kbd>Ctrl</kbd> + <kbd>A</kbd> selects the entire table
+* <kbd>Ctrl</kbd> + <kbd>C</kbd> copy the content of the selected cells to the system clipboard
+* <kbd>Ctrl</kbd> + <kbd>&uparrow;</kbd> goes to the first row
+* <kbd>Ctrl</kbd> + <kbd>&downarrow;</kbd> goes to the last row
+* <kbd>Ctrl</kbd> + <kbd>&leftarrow;</kbd> goes to the first column
+* <kbd>Ctrl</kbd> + <kbd>&rightarrow;</kbd> goes to the last column
+* <kbd>Shift</kbd> + <kbd>arrow;</kbd> expands/contracts the current selection
 
 ## Limitations/Known Issues
 
@@ -499,7 +493,7 @@ Any change in the static Java class path will be available in the next Matlab se
 
 1. The procedures to insert and delete columns aren't very elegant and can be quite inefficient compared to `addColumn` and `moveColumn` methods, because, basically, a new data with empty columns is assigned in the table (and with it, renderers, editors, etc.), however they are the easiest way to maintain order in the columns, by matching the indices in the view with the model. In this sense, if shorcuts are used, avoid keep the left or right arrow keys pressed for a long time, it can produce a very poor performance.
 
-1. The drag in the headers with the `ctrl` key + mouse combination was not implemented. It'll make the highlighted headers doesn't match the selection of the table (particularly for the row header, that is other javax.swing.JTable object).
+1. The drag in the headers with the <kbd>Ctrl</kbd> key + mouse combination was not implemented. It'll make the highlighted headers doesn't match the selection of the table (particularly for the row header, that is other javax.swing.JTable object).
 
 1. If we drag the scroll bars directly, specially for the horizontal bar, would see a bit of delay between the renderers of the headers and the table's body. This is probably because every time the view changes, the components of the jscrollpane are repainted. The solution for this is …..??
 
