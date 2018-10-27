@@ -45,70 +45,71 @@ methodName(t,arg1,arg2,...);
 
 <tr>
   <td><b>ButtonDownFcn</b><br>Function that executes when a mouse button is pressed in the table
-  <td>&#9656; '' (default)<br>&#9656; function handle <br>&#9656; cell array<br>&#9656; char vector
-  <td>t.ButtonDownFcn = @function1;<br><br>t.ButtonDownFcn = @(~,e)disp(['a ',...<br>e.Button,' click was made on ',e.ClickedArea]);<br><br>t.ButtonDownFcn = {@function2,extraArg1,extraArg2};<br><br>t.ButtonDownFcn = 'disp(''a mouse button was pressed'')';
+  <td>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array<br>&#9656; char vector
+  <td>t.ButtonDownFcn = @function1;<br><br>t.ButtonDownFcn = @(~,e)disp(['a ',...<br>e.Button,' click was made on ',e.ClickedArea]);<br><br>t.ButtonDownFcn = {@function2,...<br>extraArg1,extraArg2};<br><br>t.ButtonDownFcn = 'disp(''a mouse button was pressed'')';
   <td>The function handle receives 2 arguments by default: the Source and the EventData. The first is the olduitable object involved and the last one is a structure with the fields ClickedArea, Button, ClickCount and ClickPosition.
 
 <tr>
-  <td><b>CellEditCallback</b><br>Function that executes when the contents of table change<td>&#9656; '' (default)<br>&#9656; function handle<br>&#9656; cell array<br>&#9656; char vector
-  <td>t = olduitable('Data',magic(5),...<br>'CellEditCallback', @(~,e)disp(['the cell (',num2str([e.RowIndices(1) e.ColumnIndices(1)]),') was the first one edited']));
+  <td><b>CellEditCallback</b><br>Function that executes when the contents of table change
+  <td>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array<br>&#9656;char vector
+  <td>t = olduitable('Data',magic(5),...<br>'CellEditCallback', @(~,e)disp(['the cell (',...<br>num2str([e.RowIndices(1) e.ColumnIndices(1)]),...<br>') was the first one edited']));
   <td>The EventData structure contains the fields: RowIndices, ColumnIndices, PreviousData, EditData and EventName.
 
 <tr>
   <td><b>CellSelectionCallback</b><br>Function that executes when the table selection changes
-  <td><br>&#9656; '' (default)<br>&#9656; function handle<br>&#9656; cell array
+  <td>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array
   <td>
   <td>The EventData structure contains the fields: RowIndices and ColumnIndices.
 
 <tr>
   <td><b>ColumnAlign</b><br>Indicates the alignment of the columns.
-  <td>&#9656; 'center' (default), 'letf' or 'right'<br>&#9656; 1-by-n or n-by-1 cell array of character vectors with any of those values for each column.
-  <td>t = olduitable('Data', magic(2), 'ColumnAlign',{'left','right'});
+  <td>&#9656;'center' (default), 'letf' or 'right'<br>&#9656;1-by-n or n-by-1 cell array of character vectors with any of those values for each column.
+  <td>t = olduitable('Data',magic(2),'ColumnAlign',{'left','right'});
   <td>If the length of the ColumnAlign array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with the default value.<br><br>
 This property won't have effect for the columns with 'color' or 'logical' formats.
 
 <tr><td><b>ColumnColor</b><br>Indicates the pattern for the columns' background colors.
-  <td>&#9656; [1 1 1; 0.94 0.94 0.94] (default)<br>&#9656; m-by-3 matrix of RGB triplets
-  <td>t = olduitable('data', magic(10), 'ColumnStriping','on','ColumnColor',[1 0 0; 0 1 0; 0 0 1]);
+  <td>&#9656;[1 1 1; 0.94 0.94 0.94] (default)<br>&#9656;m-by-3 matrix of RGB triplets
+  <td>t = olduitable('data', magic(10),...<br>'ColumnStriping','on',...<br>'ColumnColor',[1 0 0; 0 1 0; 0 0 1]);
   <td>This property will take effect as long as the ColumnStriping property is set to 'on' and the RowStriping property is 'off'.<br><br>
 See also the setCellBg method.
 
 <tr><td><b>ColumnEditable</b><br>Indicates the ability to edit the column cells
-  <td>&#9656; logical scalar or array (false by default)<br>&#9656; numeric scalar or array with binary values
-  <td>t = olduitable('data',magic(2),'ColumnEditable',[true false]);<br><br>t = olduitable('Data',magic(2),'ColumnEditable',[1 0]);
+  <td>&#9656;logical scalar or array (false by default)<br>&#9656;numeric scalar or array with binary values
+  <td>t = olduitable('data',magic(2),...<br>'ColumnEditable',[true false]);<br><br>t = olduitable('Data',magic(2),...<br>'ColumnEditable',[1 0]);
   <td>If the length of the ColumnEditable array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with the default value (or repeating the assigned unique value).
 
 <tr>
   <td><b>ColumnFormat</b><br>Indicates the column displays
   <td>&#9656;empty char '' (default)<br>&#9656;char vectors as 'bank', 'char', 'color', 'logical', 'longchar' or 'popup'<br>&#9656;char vector with a valid formatting operator (see <a href="https://www.mathworks.com/help/matlab/ref/sprintf.html?s_tid=doc_ta#btf_bfy-1_sep_shared-formatSpec">Matlab Documentation</a>)
 <br>&#9656;1-by-n or n-by-1 cell array of char vectors with any of those values for each column.
-    <td>data = {'red','dog',true,pi,repmat('a',1,100); 'blue','cat',false,25,repmat('b',1,100)};<br>t = olduitable('ColumnEditable',true, 'ColumnFormat', {'color','popup','logical','%.2f','longchar'},'Data',data);<br><br>t = olduitable('ColumnFormat','color','Data',{java.awt.Color(0.7,0.4,0.9),'m'});
+    <td>data = {'red','dog',true,pi,repmat('a',1,100);<br>'blue','cat',false,25,repmat('b',1,100)};<br>t = olduitable('ColumnEditable',true,...<br>'ColumnFormat',{'color','popup','logical','%.2f','longchar'},...<br>'Data',data);<br><br>t = olduitable('ColumnFormat','color','Data',{java.awt.Color(0.7,0.4,0.9),'m'});
     <td>If the ColumnEditable property for the columns with formats like 'color', 'logical', 'longchar' or 'popup' is false (or 0), user won't be able to interact with these columns.<br><br>The 'color' format supports a short or long name of the basic colors and a java.awt.Color object, as in the second example.
 
 <tr>
   <td><b>ColumnFormatData</b><br>Indicates the list of options for the columns with a 'popup' ColumnFormat value.
   <td>&#9656;empty cell array {} (default)
 <br>&#9656;1-by-n or n-by-1 cell array with empty values or cellstr arrays.
-  <td>t = olduitable('ColumnEditable',true, 'ColumnFormat', {'color','popup'},'Data',{'red','dog'; 'blue','cat'});<br>t.ColumnFormatData{2} = {'dog','cat','rabbit','turtle'};
+  <td>t = olduitable('ColumnEditable',true,...<br>'ColumnFormat',{'color','popup'},...<br>'Data',{'red','dog'; 'blue','cat'});<br>t.ColumnFormatData{2} = {'dog','cat',...<br>'rabbit','turtle'};
   <td>If the format of the column is not equal to 'popup' and the ColumnFormatData value is a cellstr a warning will appear and the popup list won't be assigned. Despite this, the value will be stored in case the user assigns the appropriate format later.<br><br>
 If the ColumnFormatData is empty for a column that has a 'popup' format (as shown in the example for the ColumnFormat property) the popup list will be created automatically considering all the different cell values for this column.
 
 <tr>
   <td><b>ColumnName</b><br>Indicates the names of the column headers
   <td>&#9656;'numbered'(default)<br>&#9656;empty array<br>&#9656;1-by-n or n-by-1 cell array of char vectors
-  <td>t = olduitable('Data',magic(2),'ColumnName',{'header 1','too long|header for a|single line'});<br>% the vertical slash (|) is used for headers with multiple lines
+  <td>t = olduitable('Data',magic(2),...<br>'ColumnName',{'header 1',...<br>'too long|header for a|single line'});<br>
   <td>If an empty array is assigned ({} or []), the table won't have column headers.<br><br>If the length of the ColumnName array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with empty chars ('').
 
 <tr>
   <td><b>ColumnResizable</b><br>Indicates the ability to resize the column widths
   <td>&#9656;logical scalar or array (true by default)<br>&#9656;numeric scalar or array with binary values
-  <td>t = olduitable('data',magic(2), 'ColumnResizable',[true false]);<br><br>t2 = olduitable(figure,'Data',magic(2), 'ColumnResizable',[1 0]);
+  <td>t = olduitable('data',magic(2),...<br>'ColumnResizable',[true false]);<br><br>t2 = olduitable(figure,'Data',magic(2), 'ColumnResizable',[1 0]);
   <td>If the length of the ColumnResizable array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with the default value.
 
 <tr>
   <td><b>ColumnSortable</b><br>Indicates the ability to sort the columns
   <td>&#9656;logical scalar or array (true by default)<br>&#9656;numeric scalar or array with binary values
-    <td>t = olduitable('data',magic(10), 'ColumnSortable',[true(1,5) false(1,5)]);
+  <td>t = olduitable('data',magic(10),...<br>'ColumnSortable',[true(1,5) false(1,5)]);
   <td>To sort a column we must left-click the header.<br>
 The sort order is unsorted > ascending > descending, then the cycle starts again.<br><br>
 See also the sortColumn and unsort methods.
@@ -116,19 +117,19 @@ See also the sortColumn and unsort methods.
 <tr>
   <td><b>ColumnStriping</b><br>Indicates if columns have a shading pattern
   <td>&#9656;'on'<br>&#9656;'off' (default)
-  <td>t = olduitable('Data',magic(10), 'ColumnStriping','on');
+  <td>t = olduitable('Data',magic(10),...<br>'ColumnStriping','on');
   <td>This property will take effect as long as the RowStriping property is 'off'.
 
 <tr>
   <td><b>ColumnToolTip</b><br>Indicates the tooltips for the column headers
   <td>&#9656;empty char '' (default)<br>&#9656;1-by-n or n-by-1 cell array of char vectors
-  <td>t = olduitable('Data',magic(3), 'ColumnToolTip',{'this tooltip is very long|to show it in a single line','','hi, I am the tooltip for the third column'});
+  <td>t = olduitable('Data',magic(3),...<br>'ColumnToolTip',...<br>{'this tooltip is very long|to show it in a single line',...<br>'','hi, I am the tooltip for the third column'});
   <td>If the length of the ColumnToolTip array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with the default empty value (so, there will be no tooltips in these columns).
 
 <tr>
   <td><b>ColumnWidth</b><br>Indicates the width of the columns
   <td>&#9656;positive number (75 by default)<br>&#9656;1-by-n or n-by-1 cell array with positive numbers whose values are in pixel units
-  <td>t = olduitable('Data',magic(10), 'ColumnWidth',50);
+  <td>t = olduitable('Data',magic(10),...<br>'ColumnWidth',50);
   <td>If the length of the ColumnWidth array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with the default value.<br><br>
 See also the fitcolumns2panel method.
 
@@ -146,7 +147,7 @@ See also the fitcolumns2panel method.
 
 <tr><td><b>FontName</b><br>Indicates the font for the cell content.
   <td>&#9656;any system supported font name that MATLAB can render
-  <td>t = olduitable('data',magic(5), 'FontName','Courier New');
+  <td>t = olduitable('data',magic(5),'FontName','Courier New');
   <td>
 
 <tr>
@@ -164,140 +165,140 @@ See also the fitcolumns2panel method.
 <tr>
   <td><b>ForegroundColor</b><br>Indicates the cell text color
   <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0 0 0] by default)
-  <td>t = olduitable('Data',magic(5), 'ForegroundColor','blue');
+  <td>t = olduitable('Data',magic(5),'ForegroundColor','blue');
   <td>See also the setCellFg method.
 
 <tr>
   <td><b>GridColor</b><br>Indicates the color of the grid in the table
   <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.85 0.85 0.85] by default)
-  <td>t = olduitable('Data',magic(5), 'GridColor','blue');
+  <td>t = olduitable('Data',magic(5),'GridColor','blue');
   <td>
 
 <tr>
   <td><b>HeaderBackground</b><br>Indicates the background color of row and column headers
-  <td><br>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.94 0.94 0.94] by default)
-  <td>t = olduitable('Data',magic(5), 'HeaderBackground',[0.57 0.79 0.97]);
+  <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.94 0.94 0.94] by default)
+  <td>t = olduitable('Data',magic(5),...<br>'HeaderBackground',[0.57 0.79 0.97]);
   <td>
 
 <tr>
   <td><b>HeaderForeground</b><br>Indicates the foreground color of row and column headers
-  <td><br>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0 0 0] by default)
+  <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0 0 0] by default)
   <td>
   <td>
 
 <tr>
   <td><b>HeaderGridColor</b><br>Indicates the color of the borders in the row and column headers
-  <td><br>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.75 0.75 0.75] by default)
-  <td>t = olduitable('Data',magic(5), 'HeaderGridColor','black');
+  <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.75 0.75 0.75] by default)
+  <td>t = olduitable('Data',magic(5),...<br>'HeaderGridColor','black');
   <td>
 
 <tr>
   <td><b>HeaderSelectionBg</b><br>Indicates the selection background color of row and column headers
-  <td><br>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.8 0.8 0.8] by default)
-  <td>t = olduitable('Data',magic(5), 'HeaderSelectionBg','c');
+  <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.8 0.8 0.8] by default)
+  <td>t = olduitable('Data',magic(5),'HeaderSelectionBg','c');
   <td>
 
 <tr>
   <td><b>HeaderSelectionFg</b><br>Indicates the selection foreground color of row and column headers
-  <td><br>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0 0 0] by default)
+  <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0 0 0] by default)
   <td>
   <td>
 
 <tr>
   <td><b>KeyPressFcn</b><br>Function that executes when a key is pressed
-  <td><br>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array<br>&#9656;char vector
-  <td>t = olduitable('Data',magic(5), 'KeyPressFcn',@(~,e)disp(['the ''',e.Key,''' key has been pressed']));
+  <td>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array<br>&#9656;char vector
+  <td>t = olduitable('Data',magic(5),...<br>'KeyPressFcn',@(~,e)disp(['the ''',e.Key,''' key has been pressed']));
   <td>The EventData structure contains the fields: Character, Modifier, Key, and EventName.
 
 <tr>
   <td><b>KeyReleaseFcn</b><br>Function that executes when a key is released
-  <td><ul><br>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array<br>&#9656;char vector
+  <td>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array<br>&#9656;char vector
   <td>
   <td>The EventData structure contains the fields: Character, Modifier, Key, and EventName.
 
 <tr>
   <td><b>Parent</b><br>Indicates the parent object of the table
-  <td><ul><br>&#9656;Figure (gcf by default)<br>&#9656;Panel<br>&#9656;ButtonGroup<br>&#9656;Tab
-  <td>f = figure;<br>f2 = figure;<br>t = olduitable(f,'Data',magic(5),'Parent',f2);
+  <td>&#9656;Figure (gcf by default)<br>&#9656;Panel<br>&#9656;ButtonGroup<br>&#9656;Tab
+  <td>f = figure;<br>f2 = figure;<br>t = olduitable(f,'Data',magic(5),...<br>'Parent',f2);
   <td>Parent assignment will have priority over the first argument
 
 <tr>
   <td><b>Position</b><br>Indicates the location and size of the table with respect to its parent
-  <td><br>&#9656;numeric array [left bottom width height] ([1 1 350 300] by default)
-  <td>t = olduitable('Data',magic(25));<br>set(t,'Units','normalized','Position',[0 0 1 1]);
+  <td>&#9656;numeric array [left bottom width height] ([1 1 350 300] by default)
+  <td>t = olduitable('Data',magic(25));<br>set(t,'Units','normalized',...<br>'Position',[0 0 1 1]);
   <td>If multiple properties are assigned in a single call, as in the example , Units property must be declared first than Position.
 
 <tr>
   <td><b>RowColor</b><br>Indicates the background colors of the rows
-  <td><br>&#9656;matrix of RGB triplets ([1 1 1; 0.94 0.94 0.94] by default)
-  <td>t = olduitable('data', magic(10), 'RowStriping','on','RowColor',[1 0 0; 0 1 0; 0 0 1]);
+  <td>&#9656;matrix of RGB triplets ([1 1 1; 0.94 0.94 0.94] by default)
+  <td>t = olduitable('data',magic(10),...<br>'RowStriping','on',...<br>'RowColor',[1 0 0; 0 1 0; 0 0 1]);
   <td>This property will take effect as long as the RowStriping property is 'on'. If not, the first RGB triplet will be used to color all the rows.<br><br>
 See also the setCellBg method.
 
 <tr>
   <td><b>RowHeight</b><br>Indicates the height of the rows
-  <td><br>&#9656;'auto' (default)<br>&#9656;positive number whose value is in pixel units
-  <td>t = olduitable('Data',magic(5),'RowHeight',18);
+  <td>&#9656;'auto' (default)<br>&#9656;positive number whose value is in pixel units
+  <td>t = olduitable('Data',magic(5),...<br>'RowHeight',18);
   <td>The 'auto' value depends on the FontSize and FontName properties.<br><br>If a decimal number is assigned it will be rounded to the nearest integer.
 
 <tr>
   <td><b>RowName</b><br>Indicates the names of the column headers
-  <td><br>&#9656;'numbered' (default)<br>&#9656;empty char ''<br>&#9656;m-by-1 or 1-by-m cell array of char vectors
-  <td>t = olduitable('Data',magic(2),'RowName',{'Row 1';'Row 2'});
+  <td>&#9656;'numbered' (default)<br>&#9656;empty char ''<br>&#9656;m-by-1 or 1-by-m cell array of char vectors
+  <td>t = olduitable('Data',magic(2),...<br>'RowName',{'Row 1';'Row 2'});
   <td>If an empty array is assigned ({} or []), the table won't have row headers.<br><br>If the length of the RowName array doesn't match the number of rows in the table, it will be resized truncating to the correct size or filling in with empty chars ('').
 
 <tr>
   <td><b>RowStriping</b><br>Indicates if rows have a shading pattern
-  <td><br>&#9656;'on'<br>&#9656;'off' (default)
-  <td>t = olduitable('Data',magic(10), 'RowStriping','on');
+  <td>&#9656;'on'<br>&#9656;'off' (default)
+  <td>t = olduitable('Data',magic(10),'RowStriping','on');
   <td>This property will have priority over ColumnStriping, so, if both properties are 'on', only the rows will have a shadding pattern. In the case that RowStriping is 'off' and ColumnStriping is 'on', the columns will appear colored.
 
 <tr>
   <td><b>SelectionBackground</b><br>Indicates the selection background color of cells
-  <td><br>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.93 0.95 1] by default)
-  <td>t = olduitable('Data',magic(10), 'SelectionBackground',[0.65 0.81 0.95]);
+  <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.93 0.95 1] by default)
+  <td>t = olduitable('Data',magic(10),...<br>'SelectionBackground',[0.65 0.81 0.95]);
   <td>The lead selection (last cell selected) will always have a white background color.
 <br><br>If the rows or columns have a striped pattern, this property will have no effect.
 
 <tr><td><b>SelectionForeground</b><br>Indicates the selection foreground color of cells
-  <td><br>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0 0 0] by default)
-  <td>t = olduitable('Data',magic(10), 'SelectionForeground','g');
+  <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0 0 0] by default)
+  <td>t = olduitable('Data',magic(10),...<br>'SelectionForeground','g');
   <td>The lead selection will always have a black foreground color.
 <br><br>If the rows or columns have a striped pattern, this property will have no effect.
 
 <tr>
   <td><b>SelectionBorderColor</b><br>Indicates the color of the external selection border
-  <td><br>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.26 0.52  0.96] by default)
-  <td>t = olduitable('Data',magic(10), 'SelectionBackground',[0.65 0.81 0.95],'SelectionBorderColor','k'); % like 'v0' uitable
+  <td>&#9656;short or long name of a basic color<br>&#9656;RGB triplet ([0.26 0.52  0.96] by default)
+  <td>t = olduitable('Data',magic(10),'SelectionBackground',[0.65 0.81 0.95],'SelectionBorderColor','k');
   <td>
 
 <tr>
   <td><b>Tag</b><br>Assigns the table identifier
-  <td><br>&#9656;char vector ('' by default)
+  <td>&#9656;char vector ('' by default)
   <td>
   <td>
 
 <tr>
   <td><b>UIContextMenu</b><br>Indicates the context menu for table
-  <td><br>&#9656;'auto' (default)<br>&#9656;empty array<br>&#9656;a javax.swing.JPopupMenu component
+  <td>&#9656;'auto' (default)<br>&#9656;empty array<br>&#9656;a javax.swing.JPopupMenu component
   <td>
   <td>The default UIContextMenu is similar to the context menu of the Matlab Variables Editor, so it has items such as Cut, Copy, Paste, Clear Contents and Insert and Delete Rows or Columns (the latter will only be available if the entire table is editable).
 
 <tr>
   <td><b>Units</b><br>Indicates the units of measure in which the Position vector is expressed
-  <td><br>&#9656;'pixels' (default)<br>&#9656;'normalized'<br>&#9656;'inches'<br>&#9656;'centimeters'<br>&#9656;'points'<br>&#9656;'characters'
+  <td>&#9656;'pixels' (default)<br>&#9656;'normalized' <br>&#9656;'inches' <br>&#9656;'centimeters' <br>&#9656;'points' <br>&#9656;'characters'
   <td>
   <td>
 
 <tr>
   <td><b>UserData</b><br>Indicates the user data associated with the <i>olduitable</i> object
-  <td><br>&#9656;any Matlab array ([] by default)
+  <td>&#9656;any Matlab array ([] by default)
   <td>
   <td>
 
 <tr>
   <td><b>Visible</b><br>Indicates the table visibility
-  <td><br>&#9656;'on' (default)<br>&#9656;'off'
+  <td>&#9656;'on' (default)<br>&#9656;'off'
   <td>
   <td>
 
