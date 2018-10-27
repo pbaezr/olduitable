@@ -474,7 +474,7 @@ To delete the selected columns use:
 * <kbd>Ctrl</kbd> + <kbd>&downarrow;</kbd> goes to the last row
 * <kbd>Ctrl</kbd> + <kbd>&leftarrow;</kbd> goes to the first column
 * <kbd>Ctrl</kbd> + <kbd>&rightarrow;</kbd> goes to the last column
-* <kbd>Shift</kbd> + <kbd>arrow;</kbd> expands/contracts the current selection
+* <kbd>Shift</kbd> + <kbd>arrow</kbd> expands/contracts the current selection
 
 ## Limitations/Known Issues
 
