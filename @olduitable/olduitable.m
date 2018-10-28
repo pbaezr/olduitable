@@ -1270,6 +1270,9 @@ classdef olduitable < matlab.mixin.SetGet
                 obj.columnHeader.revalidate;
             end
             
+            % update current view
+            obj.columnHeader.repaint;
+            
             % store new value in backup
             obj.info.ColumnName = val;
         end % set.ColumnName
