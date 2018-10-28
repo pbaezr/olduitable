@@ -16,7 +16,6 @@ t = olduitable(parent,'PropertyName1',value1,'PropertyName2',value2,...);
 
 As usual in Matlab, the property name can be in lowercase during this stage.
 
-
 ### Modification of properties
 
 ```
@@ -26,16 +25,12 @@ set('PropertyName1',value1,'PropertyName2',value2,...);
 
 The property name can be in lowercase only for the second form.
 
-
 ### Methods
 
 ```
 t.methodName(arg1,arg2,...);
 methodName(t,arg1,arg2,...);
 ```
-
-
-
 
 ## List of properties
 
@@ -52,7 +47,7 @@ methodName(t,arg1,arg2,...);
 <tr>
   <td><b>CellEditCallback</b><br>Function that executes when the contents of table change
   <td>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array<br>&#9656;char vector
-  <td>t = olduitable('Data',magic(5),...<br>'CellEditCallback', @(~,e)disp(['the cell (',...<br>num2str([e.RowIndices(1) e.ColumnIndices(1)]),...<br>') was the first one edited']));
+  <td>t = olduitable('ColumnEditable',true,'Data',magic(5),...<br>'CellEditCallback', @(~,e)disp(['the cell (',...<br>num2str([e.RowIndices(1) e.ColumnIndices(1)]),...<br>') was the first one edited']));
   <td>The EventData structure contains the fields: RowIndices, ColumnIndices, PreviousData, EditData and EventName.
 
 <tr>
@@ -83,7 +78,7 @@ See also the setCellBg method.
   <td><b>ColumnFormat</b><br>Indicates the column displays
   <td>&#9656;empty char '' (default)<br>&#9656;char vectors as 'bank', 'char', 'color', 'logical', 'longchar' or 'popup'<br>&#9656;char vector with a valid formatting operator (see <a href="https://www.mathworks.com/help/matlab/ref/sprintf.html?s_tid=doc_ta#btf_bfy-1_sep_shared-formatSpec">Matlab Documentation</a>)
 <br>&#9656;1-by-n or n-by-1 cell array of char vectors with any of those values for each column.
-    <td>data = {'red','dog',true,pi,repmat('a',1,100);<br>'blue','cat',false,25,repmat('b',1,100)};<br>t = olduitable('ColumnEditable',true,...<br>'ColumnFormat',{'color','popup','logical','%.2f','longchar'},...<br>'Data',data);<br><br>t2 = olduitable(figure,'ColumnFormat','color',...<br>'Data',{java.awt.Color(0.7,0.4,0.9),'m'});
+    <td>data = {'red','dog',true,pi,repmat('a',1,100);<br>'blue','cat',false,25,repmat('b',1,100)};<br>t = olduitable('ColumnEditable',true,...<br>'ColumnFormat',{'color','popup','logical','%.2f','longchar'},...<br>'Data',data);<br><br>t2 = olduitable(figure,'ColumnEditable',true,...<br>'ColumnFormat','color',...<br>'Data',{java.awt.Color(0.7,0.4,0.9),'m'});
     <td>If the ColumnEditable property for the columns with formats like 'color', 'logical', 'longchar' or 'popup' is false (or 0), user won't be able to interact with these columns.<br><br>The 'color' format supports a short or long name of the basic colors and a java.awt.Color object, as in the second example.
 
 <tr>
