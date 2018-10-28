@@ -480,22 +480,22 @@ To delete the selected columns use:
 
 1. `olduitable` should work since Matlab R2014b, mainly due the dot notation usage, however it hasn't been tested, so maybe it could work in previous versions. Besides, should be considered the version of Java (really, the JVM) that Matlab is using. The package `asd.fgh.olduitable` used in this class was compiled in Java 7 (used for the first time in R2013b), so for earlier versions the Java classes must be recompiled and repacked.
 
-1. The JAR file that contains these classes is added to the dynamic path by the `javaaddpath` function. This could produce problems if another package was added before. So, the best option is to include it in the static path through a customized `javaclasspath.txt` located in the "preference folder" (type `prefdir` in the command window to know which is) or in the "startup folder". This file must contain the full name of the JAR file, like the following example:<br
+1. The JAR file that contains these classes is added to the dynamic path by the `javaaddpath` function. This could produce problems if another package was added before. So, the best option is to include it in the static path through a customized `javaclasspath.txt` located in the "preference folder" (type `prefdir` in the command window to know which is) or in the "startup folder". This file must contain the full name of the JAR file, like the following example:
 ```
 <before>
 C:\Documents\MATLAB\@olduitable\javaClasses.jar
 ```
 Any change in the static Java class path will be available in the next Matlab session.
 
-1. The formats `'bank'` and `'char'` don't determine the alignment of the content like Matlab (left-justified for chars and right-justified for numerical data). To reproduce this behavior, we must use the `ColumnAlign` property.
+3. The formats `'bank'` and `'char'` don't determine the alignment of the content like Matlab (left-justified for chars and right-justified for numerical data). To reproduce this behavior, we must use the `ColumnAlign` property.
 
-1. The use of multiple sort keys was not implemented, so only the current column sorted controls the order for the rows. Besides, if we edit the content of the cells when a sort mode is active, the new data is not re-sorted. In that case the sort sequence is reset, starting an ascending sorting if we click on the column header again. It could be easily fixed by defining `sorter.setSortsOnUpdates(true)`, but this would complicate the rearrangement of the row headers. On the other hand, the methods to insert rows are disabled while a sort mode is active.
+4. The use of multiple sort keys was not implemented, so only the current column sorted controls the order for the rows. Besides, if we edit the content of the cells when a sort mode is active, the new data is not re-sorted. In that case the sort sequence is reset, starting an ascending sorting if we click on the column header again. It could be easily fixed by defining `sorter.setSortsOnUpdates(true)`, but this would complicate the rearrangement of the row headers. On the other hand, the methods to insert rows are disabled while a sort mode is active.
 
-1. The procedures to insert and delete columns aren't very elegant and can be quite inefficient compared to `addColumn` and `moveColumn` methods, because, basically, a new data with empty columns is assigned in the table (and with it, renderers, editors, etc.), however they are the easiest way to maintain order in the columns, by matching the indices in the view with the model. In this sense, if shorcuts are used, avoid keep the left or right arrow keys pressed for a long time, it can produce a very poor performance.
+5. The procedures to insert and delete columns aren't very elegant and can be quite inefficient compared to `addColumn` and `moveColumn` methods, because, basically, a new data with empty columns is assigned in the table (and with it, renderers, editors, etc.), however they are the easiest way to maintain order in the columns, by matching the indices in the view with the model. In this sense, if shorcuts are used, avoid keep the left or right arrow keys pressed for a long time, it can produce a very poor performance.
 
-1. The drag in the headers with the <kbd>Ctrl</kbd> key + mouse combination was not implemented. It'll make the highlighted headers doesn't match the selection of the table (particularly for the row header, that is other javax.swing.JTable object).
+6. The drag in the headers with the <kbd>Ctrl</kbd> key + mouse combination was not implemented. It'll make the highlighted headers doesn't match the selection of the table (particularly for the row header, that is other javax.swing.JTable object).
 
-1. If we drag the scroll bars directly, specially for the horizontal bar, would see a bit of delay between the renderers of the headers and the table's body. This is probably because every time the view changes, the components of the jscrollpane are repainted. The solution for this is …..??
+7. If we drag the scroll bars directly, specially for the horizontal bar, would see a bit of delay between the renderers of the headers and the table's body. This is probably because every time the view changes, the components of the jscrollpane are repainted. The solution for this is …..??
 
 ## License
 
