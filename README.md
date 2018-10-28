@@ -464,7 +464,7 @@ To delete the selected columns use:
 ### Common keyboard shortcuts
 
 * <kbd>Ctrl</kbd> + <kbd>A</kbd> selects the entire table
-* <kbd>Ctrl</kbd> + <kbd>C</kbd> copy the content of the selected cells to the system clipboard
+* <kbd>Ctrl</kbd> + <kbd>C</kbd> copies the content of the selected cells to the system clipboard
 * <kbd>Ctrl</kbd> + <kbd>&uparrow;</kbd> goes to the first row
 * <kbd>Ctrl</kbd> + <kbd>&downarrow;</kbd> goes to the last row
 * <kbd>Ctrl</kbd> + <kbd>&leftarrow;</kbd> goes to the first column
