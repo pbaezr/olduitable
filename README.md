@@ -47,7 +47,7 @@ methodName(t,arg1,arg2,...);
 <tr>
   <td><b>CellEditCallback</b><br>Function that executes when the contents of table change
   <td>&#9656;'' (default)<br>&#9656;function handle<br>&#9656;cell array<br>&#9656;char vector
-  <td>t = olduitable('ColumnEditable',true,'Data',magic(5),...<br>'CellEditCallback', @(~,e)disp(['the cell (',...<br>num2str([e.RowIndices(1) e.ColumnIndices(1)]),...<br>') was the first one edited']));
+  <td>t = olduitable('ColumnEditable',true,...<br>'Data',magic(5),...<br>'CellEditCallback', @(~,e)disp(['the cell (',...<br>num2str([e.RowIndices(1) e.ColumnIndices(1)]),...<br>') was the first one edited']));
   <td>The EventData structure contains the fields: RowIndices, ColumnIndices, PreviousData, EditData and EventName.
 
 <tr>
@@ -130,7 +130,7 @@ See also the fitcolumns2panel method.
 
 <tr>
   <td><b>Data</b><br>Indicates the contents of the table
-  <td>&#9656;numeric, logical or cell array
+  <td>numeric, logical or cell array
   <td>
   <td>See also the getValue, setValue, paste and cut methods.
 
@@ -141,19 +141,19 @@ See also the fitcolumns2panel method.
   <td>The Regardless of the Enable setting, ButtonDownFcn property will remain active.
 
 <tr><td><b>FontName</b><br>Indicates the font for the cell content.
-  <td>&#9656;any system supported font name that MATLAB can render
+  <td>any system supported font name that MATLAB can renderer
   <td>t = olduitable('data',magic(5),...<br>'FontName','Courier New');
   <td>
 
 <tr>
   <td><b>FontSize</b><br>Indicates the font size for the table
-  <td>&#9656;positive number whose value is in pixel units (12 by default)
+  <td>positive number whose value is in pixel units (12 by default)
   <td>
   <td>If a decimal number is assigned it will be rounded to the nearest integer.
 
 <tr>
   <td><b>FontStyle</b><br>Indicates the font style for the table
-  <td>&#9656;'normal' or 0 (default)<br>&#9656;'bold' or 1&#9656;'italic' or 2&#9656;'bold italic' or 3
+  <td>&#9656;'normal' or 0 (default)<br>&#9656;'bold' or 1<br>&#9656;'italic' or 2<br>&#9656;'bold italic' or 3
   <td>
   <td>
 
@@ -219,13 +219,13 @@ See also the fitcolumns2panel method.
 
 <tr>
   <td><b>Position</b><br>Indicates the location and size of the table with respect to its parent
-  <td>&#9656;numeric array [left bottom width height] ([1 1 350 300] by default)
+  <td>numeric array<br>[left bottom width height]<br>([1 1 350 300] by default)
   <td>t = olduitable('Data',magic(25));<br>set(t,'Units','normalized',...<br>'Position',[0 0 1 1]);
   <td>If multiple properties are assigned in a single call, as in the example , Units property must be declared first than Position.
 
 <tr>
   <td><b>RowColor</b><br>Indicates the background colors of the rows
-  <td>&#9656;matrix of RGB triplets ([1 1 1; 0.94 0.94 0.94] by default)
+  <td>matrix of RGB triplets ([1 1 1; 0.94 0.94 0.94] by default)
   <td>t = olduitable('data',magic(10),...<br>'RowStriping','on',...<br>'RowColor',[1 0 0; 0 1 0; 0 0 1]);
   <td>This property will take effect as long as the RowStriping property is 'on'. If not, the first RGB triplet will be used to color all the rows.<br><br>
 See also the setCellBg method.
@@ -269,7 +269,7 @@ See also the setCellBg method.
 
 <tr>
   <td><b>Tag</b><br>Assigns the table identifier
-  <td>&#9656;char vector ('' by default)
+  <td>char vector ('' by default)
   <td>
   <td>
 
@@ -287,7 +287,7 @@ See also the setCellBg method.
 
 <tr>
   <td><b>UserData</b><br>Indicates the user data associated with the <i>olduitable</i> object
-  <td>&#9656;any Matlab array ([] by default)
+  <td>any Matlab array ([] by default)
   <td>
   <td>
 
