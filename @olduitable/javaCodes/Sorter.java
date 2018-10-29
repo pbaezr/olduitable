@@ -6,13 +6,13 @@ import javax.swing.table.*;
 public class Sorter extends TableRowSorter<TableModel>{
 
 	private Comparator comparator = new Comparator() {
-        public int compare(Object o1, Object o2) {
+        	public int compare(Object o1, Object o2) {
 			if (o1 instanceof Double && o2 instanceof Double)
 				return ((Double)o1).compareTo((Double)o2);
 			else
 				return o1.toString().compareTo(o2.toString());
-			}
-    };
+		}
+    	};
 	
 	private List<RowSorter.SortKey> sortKeys = new ArrayList<>(1);
 	
@@ -39,5 +39,3 @@ public class Sorter extends TableRowSorter<TableModel>{
 		super.setSortKeys(sortKeys);
 	}
 }
-
-
