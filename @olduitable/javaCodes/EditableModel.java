@@ -4,7 +4,7 @@ import javax.swing.table.*;
 
 public class EditableModel extends DefaultTableModel implements TableModel {
   
-    boolean[] columnEditable = new boolean[this.getColumnCount()];	
+	boolean[] columnEditable = new boolean[this.getColumnCount()];	
   
 	public EditableModel(Object[][] data, Object[] columnNames) {
 		super(data, columnNames);
