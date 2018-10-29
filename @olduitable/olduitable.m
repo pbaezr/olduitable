@@ -1180,7 +1180,6 @@ classdef olduitable < matlab.mixin.SetGet
             val = obj.info.ColumnFormatData;
         end % get.ColumnFormat
         
-        % ColumnFormatData -------------------------------------------------------------------
         function set.ColumnFormatData(obj,val)
             % validate input
             n = obj.jtable.getColumnCount;
@@ -1206,7 +1205,7 @@ classdef olduitable < matlab.mixin.SetGet
             
             % store value in backup
             obj.info.ColumnFormatData = val;
-        end % get.ColumnFormat
+        end % set.ColumnFormat
         
         
         % ColumnName -------------------------------------------------------------------
