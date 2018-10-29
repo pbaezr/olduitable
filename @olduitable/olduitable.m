@@ -1205,8 +1205,7 @@ classdef olduitable < matlab.mixin.SetGet
             
             % store value in backup
             obj.info.ColumnFormatData = val;
-        end % set.ColumnFormat
-        
+        end % set.ColumnFormat        
         
         % ColumnName -------------------------------------------------------------------
         function val = get.ColumnName(obj)
