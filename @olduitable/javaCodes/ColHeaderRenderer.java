@@ -54,7 +54,7 @@ public class ColHeaderRenderer extends JLabel implements TableCellRenderer {
 		arrow.setText("");
 		List<? extends RowSorter.SortKey> keys = table.getRowSorter().getSortKeys();
 		
-        if (!keys.isEmpty() && column == keys.get(0).getColumn()) {
+        	if (!keys.isEmpty() && column == keys.get(0).getColumn()) {
 			left = 12;
 			arrow.setForeground(selbgcolor.darker());
 			if (keys.get(0).getSortOrder() == SortOrder.ASCENDING) {
