@@ -2,6 +2,8 @@
 
 **olduitable** is a Matlab class that implements a Java-based table. It includes many of the properties of the Matlab uitable, with an interface similar to its undocumented version (v0). Besides this class incorporates new properties such as `ColumnAlign`, `ColumnColor`, `ColumnToolTip`, `GridColor`, `HeaderBackground`, `SelectionBackground`, among others, and methods to insert or delete rows and columns and paste blocks of cells as a typical spreadsheet.
 
+<p align="center"><img src="https://la.mathworks.com/matlabcentral/mlc-downloads/downloads/b37b5fbe-a3df-4bc4-8773-9616320a12aa/e7315e73-aac1-4402-8210-48ae01b11e48/images/screenshot.png" width="50%" alt="examples"></p>
+
 ## First steps
 Once downloaded, we must copy the `@olduitable` folder to any folder that is in the Matlab search path (type `userpath` in the command window to see the first folder in the path) or use `addpath` to add this folder.
 
