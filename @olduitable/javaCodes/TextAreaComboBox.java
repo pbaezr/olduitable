@@ -3,12 +3,12 @@ import javax.swing.JTextArea;
 
 public class TextAreaComboBox extends DropDownButton{
     
-    private JTextArea textArea;
+	private JTextArea textArea;
 
-    public TextAreaComboBox(JTextArea text_Area) {
+	public TextAreaComboBox(JTextArea text_Area) {
 		super();
 		textArea = text_Area;		
-    }
+	}
 
 	public JTextArea getTextArea() {
 		return textArea;
