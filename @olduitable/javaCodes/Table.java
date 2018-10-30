@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.SwingUtilities;
 	
 public class Table extends JTable {
 	
@@ -65,5 +67,16 @@ public class Table extends JTable {
 		hscrollbar.getComponent(1).addMouseListener(stopEditing);
 		vscrollbar.getComponent(0).addMouseListener(stopEditing);
 		vscrollbar.getComponent(1).addMouseListener(stopEditing);
+	}
+	
+	public int getOptimalColumnWidth(int column) {
+		int width = 0;
+		TableCellRenderer renderer = getColumnModel().getColumn(column).getCellRenderer();
+		FontMetrics fontMetrics = getFontMetrics(getFont());
+		for(int row = 0; row < getRowCount(); row++) {
+			CellRenderer cellRenderer = (CellRenderer)prepareRenderer(renderer, row, column);
+			width = Math.max(width, SwingUtilities.computeStringWidth(fontMetrics, cellRenderer.getText()));
+		}
+		return width;
 	}
 }
