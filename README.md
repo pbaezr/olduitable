@@ -491,7 +491,7 @@ To delete the selected columns use:
 <before>
 C:\Documents\MATLAB\@olduitable\javaClasses.jar
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any change in the static Java class path will be available in the next Matlab session.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any change in the static Java class path will be available in the next Matlab session.
 
 3. The formats `'bank'` and `'char'` don't determine the alignment of the content like Matlab (left-justified for chars and right-justified for numerical data). To reproduce this behavior, we must use the `ColumnAlign` property.
 
