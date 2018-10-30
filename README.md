@@ -128,7 +128,7 @@ See also the sortColumn and unsort methods.
   <td>&#9656;positive number (75 by default)<br>&#9656;1-by-n or n-by-1 cell array with positive numbers whose values are in pixel units
   <td>t = olduitable('Data',magic(10),...<br>'ColumnWidth',50);
   <td>If the length of the ColumnWidth array doesn't match the number of columns in the table, it will be resized truncating to the correct size or filling in with the default value.<br><br>
-See also the fitcolumns2panel method.
+See also the fitAllColumns2Panel and fitColumn2Data methods.
 
 <tr>
   <td><b>Data</b><br>Indicates the contents of the table
@@ -329,7 +329,16 @@ To programmatically redraw the `olduitable` whose properties were stored in the 
 
 To adjust the column widths to the visible area of the scroll pane, use:
 
-`t.fitColumns2Panel;`
+`t.fitAllColumns2Panel`
+
+On the other hand, to adjust the width for a column according to its content, use any of the following commands:
+
+```
+t.fitColumn2Data(columnIndex)
+t.fitColumn2Data(columnIndex,considerHeader)
+```
+
+where `considerHeader` is a logical scalar (`false` by default) that indicates if the column heading name is considered in the calculation.
 
 ### Select a range of cells
 
@@ -482,7 +491,7 @@ To delete the selected columns use:
 <before>
 C:\Documents\MATLAB\@olduitable\javaClasses.jar
 ```
-Any change in the static Java class path will be available in the next Matlab session.
+&nbsp;&nbsp;Any change in the static Java class path will be available in the next Matlab session.
 
 3. The formats `'bank'` and `'char'` don't determine the alignment of the content like Matlab (left-justified for chars and right-justified for numerical data). To reproduce this behavior, we must use the `ColumnAlign` property.
 
