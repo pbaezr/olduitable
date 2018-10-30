@@ -80,7 +80,7 @@ classdef olduitable < matlab.mixin.SetGet
         editingCol = -1 % index for the last column that was in an edit mode
         editType % parameter that indicates the type of edition in the table ('CellEdit','ColumnsInsertion','RowsInsertion','ColumnsDelete', etc.)
         fontMetrics % parameter to measure the strings according to the font used in the table
-        fontMetricsRowHeader % idem for the row headers
+        fontMetricsHeaders % idem for the row and column headers
         inConstruction = false % parameter that indicates whether table is still in construction
         info % variable that works as a backup that store all the settable properties (except for callback functions, Data, Parent and UserData)
         isDataModified = false % parameter that indicates whether a cell was modified
@@ -232,8 +232,8 @@ classdef olduitable < matlab.mixin.SetGet
             table = javaObjectEDT('asd.fgh.olduitable.Table',obj.tableModel);           
             obj.jtable = handle(table,'CallbackProperties');
             defaultFont = obj.jtable.getFont;
-            obj.fontMetrics = java.awt.Canvas().getFontMetrics(defaultFont);
-            obj.fontMetricsRowHeader = obj.fontMetrics;
+            obj.fontMetrics = obj.jtable.getFontMetrics(defaultFont);
+            obj.fontMetricsHeaders = obj.fontMetrics;
             
             % column model
             obj.columnModel = handle(obj.jtable.getColumnModel,'CallbackProperties');
@@ -402,17 +402,72 @@ classdef olduitable < matlab.mixin.SetGet
             save(filename,'properties')
         end        
         
-        function fitColumns2Panel(obj)
-            % Function to adjust the column widths to the visible area of the scroll pane.<br><font face="consolas">t.fitColumns2Panel
+        function fitAllColumns2Panel(obj)
+            % Function to adjust the column widths to the visible area of the scroll pane.<br><font face="consolas">t.fitAllColumns2Panel
             obj.jtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         end
         
-%         % function to adjust the column widths depending on the contents (not implemented to avoid legal problems)
-%         function fitcolumn2data(obj)
-%             obj.jtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-%             com.mathworks.mwswing.MJUtilities.initJIDE;
-%             com.jidesoft.grid.TableUtils.autoResizeAllColumns(obj.jtable);            
-%         end        
+        function fitColumn2Data(obj,columnIndex,varargin)
+            % Function to adjust the column width depending on its content.<br><font face="consolas">t.fitColumn2Data(columnIndex)<br><font face="consolas">t.fitColumn2Data(columnIndex,considerHeader) % considerHeader is a logical scalar (false by default)
+
+            % validate inputs
+            validateattributes(columnIndex,{'numeric'},{'scalar','integer','>',0,'<=',obj.jtable.getColumnCount});
+            if ~isempty(varargin)
+                if nargin == 3
+                    validateattributes(varargin{1},{'logical'},{'scalar'});
+                else
+                    error('Input must be a logical scalar');
+                end
+                considerHeader = varargin{1};
+            else
+                considerHeader = false;
+            end
+            
+            % get width according to the column format
+            column = obj.columnModel.getColumn(columnIndex-1);
+            format = obj.info.ColumnFormat{columnIndex};
+            if strcmpi(format,'color')
+                width = 40;
+            elseif strcmpi(format,'logical')
+                width = 20;
+            elseif strcmpi(format,'longchar')
+                width = column.getPreferredWidth; % maintain previous width
+            else
+%                 % this loop in Matlab has a poor performace (specially in large tables), for this reason the same code is
+%                 % implemented in the 'getOptimalColumnWidth' method for the 'asd.fgh.olduitable.Table' java class
+%                 width = 0;
+%                 renderer = column.getCellRenderer;
+%                 for row = 1:obj.jtable.getRowCount
+%                     cr = obj.jtable.prepareRenderer(renderer,row-1,columnIndex-1);
+%                     width = max(width,javax.swing.SwingUtilities.computeStringWidth(obj.fontMetrics,cr.getText));
+%                 end
+                width = obj.jtable.getOptimalColumnWidth(columnIndex-1);
+                
+                if strcmpi(format,'popup') % give additional space for the scrollbar (if it exists)
+                    editor = obj.jtable.getCellEditor(0,columnIndex-1).getComponent;                    
+                    if editor.getMaximumRowCount < editor.getItemCount, width = 15 + width; end                        
+                else
+                    width = 10 + width;
+                end
+            end
+            
+            % recalculate the width if the column header is considered
+            if considerHeader
+                if ischar(obj.info.ColumnName)
+                    width = max(width,10+javax.swing.SwingUtilities.computeStringWidth(obj.fontMetricsHeaders,column.getHeaderValue));
+                else
+                    % split the column header if it has more than one line and calculate for the maximum string width
+                    headerName4line = strsplit(obj.info.ColumnName{columnIndex},'|');
+                    width = max(width,10+max(cellfun(@(x)javax.swing.SwingUtilities.computeStringWidth(obj.fontMetricsHeaders,x),headerName4line)));                    
+                end
+            end
+            
+            % set the new column width
+            column.setPreferredWidth(width);
+            
+            % store value in backup
+            obj.info.ColumnWidth{columnIndex} = width;
+        end        
         
         function setSelection(obj,firstCell,lastCell)
             % Function to select a range of cells.<br><font face="consolas">t.setSelection(firstCell,lastCell); % where firstCell = [firstRowIndex, firstColumnIndex] and lastCell = [lastRowIndex, lastColumnIndex]
@@ -1505,7 +1560,7 @@ classdef olduitable < matlab.mixin.SetGet
             obj.info.FontName = val;
             
             % update rowheight if the 'auto' value is assigned
-            obj.fontMetrics = java.awt.Canvas().getFontMetrics(font);
+            obj.fontMetrics = obj.jtable.getFontMetrics(font);
             if ischar(obj.info.RowHeight), obj.RowHeight = obj.info.RowHeight; end            
         end % set.FontName
         
@@ -1531,7 +1586,7 @@ classdef olduitable < matlab.mixin.SetGet
             obj.info.FontSize = val;
             
             % update rowheight if the 'auto' value is assigned
-            obj.fontMetrics = java.awt.Canvas().getFontMetrics(font);
+            obj.fontMetrics = obj.jtable.getFontMetrics(font);
             if ischar(obj.info.RowHeight), obj.RowHeight = obj.info.RowHeight; end            
         end % set.FontSize
         
@@ -1819,11 +1874,11 @@ classdef olduitable < matlab.mixin.SetGet
                 if ischar(val) && strcmpi(val,'numbered')
                     rnames = obj.num2cellstr(1:m)';
                     % define the width that fits the content of the row header (this implies getting the string width of the largest number)
-                    width = 10 + javax.swing.SwingUtilities.computeStringWidth(obj.fontMetricsRowHeader,rnames{m});
+                    width = 10 + javax.swing.SwingUtilities.computeStringWidth(obj.fontMetricsHeaders,rnames{m});
                 else
                     val = obj.resize2columncount(m,'',val')';
                     rnames = val;
-                    width = max(15,10 + max(cellfun(@(x)javax.swing.SwingUtilities.computeStringWidth(obj.fontMetricsRowHeader,x),rnames)));
+                    width = max(15,10 + max(cellfun(@(x)javax.swing.SwingUtilities.computeStringWidth(obj.fontMetricsHeaders,x),rnames)));
                 end
                 obj.rownames = rnames; % store values shown on the screen             
             end
