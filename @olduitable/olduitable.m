@@ -18,7 +18,7 @@ classdef olduitable < matlab.mixin.SetGet
         CellSelectionCallback = '' % Function that is executed when the table selection changes.<li>Valid Inputs: function handle | cell array | char vector
     end
     
-    properties (Dependent)     
+    properties (Dependent)
         ColumnAlign % Indicates the alignment of the columns.<li>Valid Inputs: 'letf' | 'center' | 'right' | cell array of char vectors
         ColumnColor % Indicates the pattern for the columns' background colors.<li>Valid Inputs: matrix of RGB triplets
         ColumnEditable % Indicates the ability to edit the column cells.<li>Valid Inputs: logical scalar or array | numeric scalar or array with binary values
