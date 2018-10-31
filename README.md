@@ -307,17 +307,17 @@ See also the setCellBg method.
 
 To programmatically destroy the `olduitable` object named `t`, use:
 
-`delete(t)`
+`t.delete`
 
 ### Recoverer
 
 To save the property values (except for the `Parent` and for a custom `UIContextMenu`) in a structure within a *.mat file, use:
 
-`saveInfo(t); % it creates the t.mat file in the current directory`
+`t.saveInfo; % it creates the t.mat file in the current directory`
 
 or
 
-`saveInfo(t,'filename'); % it creates the filename.mat file in the current directory`
+`t.saveInfo('filename'); % it creates the filename.mat file in the current directory`
 
 ### Deconstructor
 
@@ -339,6 +339,8 @@ t.fitColumn2Data(columnIndex,considerHeader)
 ```
 
 where `considerHeader` is a logical scalar (`false` by default) that indicates if the column heading name is considered in the calculation.
+
+This method won't have effect if the format for the column is `'longchar'` and the `considerHeader` input is `false`. If it is `true`, the resulting column width will be the one that best fits the width of the header.
 
 ### Select a range of cells
 
