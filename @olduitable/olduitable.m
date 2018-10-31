@@ -411,7 +411,9 @@ classdef olduitable < matlab.mixin.SetGet
             % Function to adjust the column width depending on its content.<br><font face="consolas">t.fitColumn2Data(columnIndex)<br><font face="consolas">t.fitColumn2Data(columnIndex,considerHeader) % considerHeader is a logical scalar (false by default)
             
             % ensure that the column widths are adjustable
-            obj.jtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+            if obj.jtable.getAutoResizeMode ~= 0
+                obj.jtable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+            end
             
             % validate inputs
             validateattributes(columnIndex,{'numeric'},{'scalar','integer','>',0,'<=',obj.jtable.getColumnCount});
