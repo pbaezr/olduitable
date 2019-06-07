@@ -2581,37 +2581,39 @@ classdef olduitable < matlab.mixin.SetGet
             end
             
             % define keyboard shortcuts
-            if evt.getModifiers == 2 && evt.getKeyCode == 86 % Ctrl + V
+            keyCode = evt.getKeyCode;
+            modifiers = evt.getModifiers;
+            if modifiers == 2 && keyCode == 86 % Ctrl + V
                 if jtable.getSelectedRow > -1, obj.paste; end
-            elseif evt.getKeyCode == 127 % delete
+            elseif keyCode == 127 % delete
                 if jtable.getSelectedRow > -1, obj.paste({''}); end
-            elseif evt.getModifiers == 2 && evt.getKeyCode == 88 % Ctrl + X
+            elseif modifiers == 2 && keyCode == 88 % Ctrl + X
                 obj.cut;
-            elseif evt.getModifiers == 2 && ismember(evt.getKeyCode,37:40) % Ctrl + navigation arrows
+            elseif modifiers == 2 && ismember(keyCode,37:40) % Ctrl + navigation arrows
                 if jtable.getSelectedRow > -1
-                    if evt.getKeyCode == 38
+                    if keyCode == 38
                         jtable.changeSelection(0,jtable.getSelectedColumn,false,false)
-                    elseif evt.getKeyCode == 40
+                    elseif keyCode == 40
                         jtable.changeSelection(jtable.getRowCount-1,jtable.getSelectedColumn,false,false)
-                    elseif evt.getKeyCode == 37
+                    elseif keyCode == 37
                         jtable.changeSelection(jtable.getSelectedRow,0,false,false)
-                    else%if evt.getKeyCode == 39
+                    else%if keyCode == 39
                         jtable.changeSelection(jtable.getSelectedRow,jtable.getColumnCount-1,false,false)
                     end
                 end
-            elseif evt.getModifiers == 8 && ismember(evt.getKeyCode,37:40) % Alt + navigation arrows
-                if evt.getKeyCode == 38
+            elseif modifiers == 8 && ismember(keyCode,37:40) % Alt + navigation arrows
+                if keyCode == 38
                     obj.insertRows('above','InternalUse');
-                elseif evt.getKeyCode == 40
+                elseif keyCode == 40
                     obj.insertRows('below','InternalUse');
-                elseif evt.getKeyCode == 37
+                elseif keyCode == 37
                     obj.insertColumns('left','InternalUse');
-                else%if evt.getKeyCode == 39
+                else%if keyCode == 39
                     obj.insertColumns('right','InternalUse');
                 end
-            elseif evt.getModifiers == 2 && (strcmp(evt.getKeyChar,'-') || evt.getKeyCode == 45) % Ctrl + Minus
+            elseif modifiers == 2 && (strcmp(evt.getKeyChar,'-') || keyCode == 45) % Ctrl + Minus
                 obj.deleteRows;
-            elseif evt.getModifiers == 2 && evt.getKeyCode == 8 % Ctrl + backspace
+            elseif modifiers == 2 && keyCode == 8 % Ctrl + backspace
                 obj.deleteColumns;
             end
 
@@ -2628,23 +2630,24 @@ classdef olduitable < matlab.mixin.SetGet
                 eventdata.Key = lower(char(evt.getKeyText(evt.getKeyCode)));
                 
                 % use the english designation for the keys
-                if evt.getKeyCode == 37
+                keyCode = evt.getKeyCode;
+                if keyCode == 37
                     eventdata.Key = 'leftarrow';
-                elseif evt.getKeyCode == 38
+                elseif keyCode == 38
                     eventdata.Key = 'uparrow';
-                elseif evt.getKeyCode == 39
+                elseif keyCode == 39
                     eventdata.Key = 'rightarrow';
-                elseif evt.getKeyCode == 40
+                elseif keyCode == 40
                     eventdata.Key = 'downarrow';
-                elseif evt.getKeyCode == 8
+                elseif keyCode == 8
                     eventdata.Key = 'backspace';
-                elseif evt.getKeyCode == 9
+                elseif keyCode == 9
                     eventdata.Key = 'tab';
-                elseif evt.getKeyCode == 10
+                elseif keyCode == 10
                     eventdata.Key = 'return';
-                elseif evt.getKeyCode == 20
+                elseif keyCode == 20
                     eventdata.Key = 'capslock';
-                elseif evt.getKeyCode == 127
+                elseif keyCode == 127
                     eventdata.Key = 'delete';
                     .... % among other keys
                 end
