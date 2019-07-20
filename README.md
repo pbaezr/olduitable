@@ -331,6 +331,15 @@ To adjust the column widths to the visible area of the scroll pane, use:
 
 `t.fitAllColumns2Panel`
 
+If instead, we want to adjust the panel container to the table's size, use:
+
+```
+previousUnits = t.Units;
+t.Units = 'pixels';
+t.Position(3:4) = t.Extent;
+t.Units = previousUnits;
+```
+
 On the other hand, to adjust the width for a column according to its content, use any of the following commands:
 
 ```
