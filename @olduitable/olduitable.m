@@ -68,6 +68,7 @@ classdef olduitable < matlab.mixin.SetGet
     
     % read-only properties
     properties (SetAccess = private)
+        Extent % Read-only property that indicates the width and height of the rectangle containing the table in pixels (1x2 numeric array)
         RowSortIndices % Read-only property that indicates the row indices for the current sort mode according to the unsorted state (= [] if columns are unsorted)
         SortDirection % Read-only property that indicates the current sort direction.<li>Values: 0 (unsorted), 1 (ascend) or -1 (descend)
         SortedColumn % Read-only property that indicates the current sorted column index (= 0 if columns are unsorted)            
@@ -299,7 +300,7 @@ classdef olduitable < matlab.mixin.SetGet
 
             % assign essential properties (with user-defined or default values)
             % ('Parent' has already been assigned)
-            properties1 = {'Visible','Units','Position','Data','ColumnName','RowName','UIContextMenu'};
+            properties1 = {'Visible','Units','Position','Data','ColumnName','RowName','UIContextMenu','RowStriping'};
             for i = 1:length(properties1)
                 obj.(properties1{i}) = params.(properties1{i});
             end
@@ -316,7 +317,7 @@ classdef olduitable < matlab.mixin.SetGet
                 for k = index(verify), toSet.(obj.propertyList{k}) = true; end
                 for k = index(~verify), toSet.(obj.propertyList{k}) = false; end
                 properties2 = {'FontName','FontStyle','FontSize','RowHeight','Tag','UserData',...
-                    'RowStriping','RowColor','ColumnStriping','ColumnColor','ForegroundColor','GridColor',...
+                    'RowColor','ColumnStriping','ColumnColor','ForegroundColor','GridColor',...
                     'HeaderBackground','HeaderForeground','HeaderGridColor','HeaderSelectionBg','HeaderSelectionFg',...
                     'SelectionBackground','SelectionForeground','SelectionBorderColor',...
                     'ColumnAlign','ColumnFormat','ColumnEditable','ColumnResizable','ColumnSortable','ColumnToolTip','ColumnWidth','Enable',...
@@ -2042,6 +2043,13 @@ classdef olduitable < matlab.mixin.SetGet
             obj.cont.Visible = val;
             obj.info.Visible = val;
         end % set.Visible
+        
+        % Extent -------------------------------------------------------------------
+        function val = get.Extent(obj)
+            tableSize = obj.jtable.getPreferredSize;
+            val = [tableSize.width+obj.rowheader.getPreferredScrollableViewportSize.width+4,...
+                tableSize.height+obj.columnHeader.getParent.getPreferredSize.height+4];
+        end % get.Extent
     end
     
     % utility functions to facilitate the update of the renderers
