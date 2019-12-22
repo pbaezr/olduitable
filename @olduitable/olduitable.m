@@ -1497,7 +1497,7 @@ classdef olduitable < matlab.mixin.SetGet
                 obj.ColumnResizable = obj.info.ColumnResizable;
                 obj.ColumnSortable = obj.info.ColumnSortable;
                 obj.ColumnToolTip = obj.info.ColumnToolTip;
-                obj.ColumnWidth = obj.info.ColumnWidth;
+                if obj.jtable.getAutoResizeMode ~= 4, obj.ColumnWidth = obj.info.ColumnWidth; end
                 
                 % check if method wasn't called from another (such as insertColumns, deleteColumns, etc.)
                 if isempty(obj.editType)
