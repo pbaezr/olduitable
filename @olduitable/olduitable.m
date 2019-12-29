@@ -2517,7 +2517,7 @@ classdef olduitable < matlab.mixin.SetGet
             end
 
             % call user's callback ('CellSelectionCallback' is triggered in the 'selectionChanged' function)
-            if ~jtable.isEnabled, obj.callButtonDownFcn(evt,'Body'); end
+            obj.callButtonDownFcn(evt,'Body');
         end
         
         % actions when the column headers are selected
