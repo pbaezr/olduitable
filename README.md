@@ -411,7 +411,7 @@ To return to the previous background defined by the `RowColor` or `ColumnColor` 
 ### Set the foreground color for a single cell
 To set the foreground color for a cell at `row` and `column`, use
 
-`t.setCellBg(value,row,column)`
+`t.setCellFg(value,row,column)`
 
 where `value` may be a char vector with the short or long name of a basic color or a RGB triplet.
 
