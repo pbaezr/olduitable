@@ -36,7 +36,7 @@ methodName(t,arg1,arg2,...);
 
 ## List of properties
 
-<table style="width:120%">
+<table style="width:100%">
 
 <tr><th>Property<th>Valid inputs<th>Examples<th>Notes
 
